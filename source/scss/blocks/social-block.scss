@@ -1,3 +1,22 @@
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .social-block {
   position: relative;
 
@@ -5,6 +24,19 @@
     .social-block__list {
       opacity: 1;
       pointer-events: auto;
+    }
+    li {
+      .social-block__link {
+        animation: 250ms fadeIn forwards ease-in-out;
+        // opacity: 1;
+        // transform: translateY(0);
+      }
+      &:nth-child(2) .social-block__link {
+        animation-duration: 400ms;
+      }
+      &:nth-child(3) .social-block__link {
+        animation-duration: 550ms;
+      }
     }
   }
 }
@@ -17,6 +49,7 @@
   height: 4rem;
   color: $c-dark;
   border-radius: 50%;
+  transition: all 250ms ease-in;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     display: none;
@@ -35,6 +68,7 @@
     background-color: $c-light;
     border: 2px solid $c-light;
     z-index: -1;
+    transition: all 250ms ease-in;
   }
 
   svg {
@@ -42,15 +76,32 @@
     display: block;
     width: 2.3rem;
     height: 2.2rem;
+    transition: all 250ms ease-in;
   }
 
-  &:hover,
-  .social-block--active & {
+  .social-block--active:hover & {
+    background-color: $c-purple;
+    svg {
+      color: white;
+    }
+  }
+
+  &:hover {
     color: $c-purple;
 
     &::before {
       width: 112.5%;
       height: 112.5%;
+    }
+  }
+
+  .social-block--active &:hover {
+    background-color: white;
+    &::before {
+      background-color: white;
+    }
+    svg {
+      color: $c-dark;
     }
   }
 
@@ -87,8 +138,9 @@
   top: 100%;
   right: 0;
   margin-top: 1.5rem;
-  opacity: 0;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease-out;
 
   @media (min-width: $stop-scaling) {
     margin-top: 15px;
@@ -146,6 +198,13 @@
     flex: none;
     margin-bottom: 0.5rem;
 
+    &:nth-child(2) .social-block__link {
+      transition-delay: 50ms;
+    }
+    &:nth-child(3) .social-block__link {
+      transition-delay: 100ms;
+    }
+
     @media (min-width: $stop-scaling) {
       margin-bottom: 5px;
     }
@@ -168,6 +227,10 @@
   color: $c-light;
   border: 2px solid transparent;
   border-radius: 50%;
+  // transform: translateY(10px);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+  animation: 1s fadeOut;
 
   @media (min-width: $stop-scaling) {
     width: 40px;

@@ -1,3 +1,12 @@
+.screen--intro {
+  &.active {
+    .intro__message {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  }
+}
+
 .intro {
   display: flex;
   flex-direction: column;
@@ -93,6 +102,9 @@
   text-transform: uppercase;
   font-size: 2.4rem;
   line-height: 1.27;
+  transition: all 300ms ease-in;
+  opacity: 0;
+  transform: translateY(20px);
 
   @media (min-width: $stop-scaling) {
     width: 509px;
