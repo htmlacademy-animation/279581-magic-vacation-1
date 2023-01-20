@@ -1106,6 +1106,10 @@ img {
   border-color: #a67ee5;
 }
 
+.screen--game.active .chat__footer::after {
+  transform: translateX(-100%);
+}
+
 .chat {
   flex-grow: 1;
   display: flex;
@@ -1307,6 +1311,27 @@ img {
 
 .chat__footer {
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+.chat__footer::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateX(0);
+  transition: transform 400ms ease-in-out;
+  display: block;
+  height: 100%;
+  width: 89%;
+  z-index: 2;
+  background-color: #5f458c;
+}
+.chat__footer input {
+  z-index: 1;
+}
+.chat__footer button {
+  z-index: 3;
 }
 
 .disclaimer {
@@ -1414,11 +1439,6 @@ img {
   }
 }
 
-.screen--game.active .form__field {
-  opacity: 1;
-  transform: translateX(0);
-}
-
 .form {
   position: relative;
   display: flex;
@@ -1466,9 +1486,6 @@ img {
   border: 0;
   border-radius: 3rem;
   outline: none;
-  transition: all 300ms ease-in;
-  transform: translateX(30px);
-  opacity: 0;
 }
 .form__field:focus {
   border: 1px solid #a67ee5;
@@ -1916,6 +1933,14 @@ img {
   }
 }
 
+@keyframes slideToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
 .page-header {
   position: fixed;
   top: 0;
@@ -2193,17 +2218,22 @@ img {
   color: inherit;
   padding: 0 0.5em 0.5em;
   transition: all 200ms;
+  overflow: hidden;
+}
+.page-header__menu a:not(.active)::after {
+  transform: translateX(-100%);
+  animation: 250ms slideToRight ease-in-out;
 }
 .page-header__menu a::after {
   content: "";
   position: absolute;
   bottom: 0;
-  width: 0;
   height: 2px;
   background-color: #ffffff;
   opacity: 0;
-  right: 0;
-  transition: opacity 500ms, background-color 200ms, width 250ms ease-in;
+  width: 100%;
+  left: 0;
+  transition: opacity 500ms, background-color 200ms, transform 250ms;
 }
 @media (max-width: 1024px) and (orientation: portrait) {
   .page-header__menu a::after {
@@ -2221,17 +2251,16 @@ img {
 }
 .page-header__menu a.active::after {
   opacity: 1;
-  width: 100%;
+  transform: translateX(0);
 }
 .page-header__menu a:hover, .page-header__menu a:focus {
   color: #a67ee5;
   outline: none;
 }
 .page-header__menu a:hover::after, .page-header__menu a:focus::after {
+  animation: none;
   opacity: 1;
-  width: 100%;
-  left: 0;
-  right: auto;
+  transform: translateX(0);
   background-color: #a67ee5;
 }
 
@@ -3878,7 +3907,7 @@ img {
   }
 }
 
-@keyframes fadeOut {
+@keyframes hideSocials {
   from {
     opacity: 1;
   }
@@ -3886,10 +3915,10 @@ img {
     opacity: 0;
   }
 }
-@keyframes fadeIn {
+@keyframes showSocials {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(1.2rem);
   }
   to {
     opacity: 1;
@@ -3903,8 +3932,10 @@ img {
   opacity: 1;
   pointer-events: auto;
 }
-.social-block:hover li .social-block__link {
-  animation: 250ms fadeIn forwards ease-in-out;
+@media (min-width: 768px) {
+  .social-block:hover li .social-block__link {
+    animation: 250ms showSocials forwards ease-in-out;
+  }
 }
 .social-block:hover li:nth-child(2) .social-block__link {
   animation-duration: 400ms;
@@ -4106,9 +4137,8 @@ img {
   color: #ffffff;
   border: 2px solid transparent;
   border-radius: 50%;
-  opacity: 0;
   transition: all 300ms ease-in-out;
-  animation: 1s fadeOut;
+  animation: 1s hideSocials;
 }
 @media (min-width: 2000px) {
   .social-block__link {
@@ -4120,6 +4150,11 @@ img {
   .social-block__link {
     color: #ffffff;
     background-color: #5f458c;
+  }
+}
+@media (min-width: 1024px) {
+  .social-block__link {
+    opacity: 0;
   }
 }
 @media (max-width: 768px) and (orientation: landscape) {
