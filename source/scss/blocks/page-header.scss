@@ -1,3 +1,12 @@
+@keyframes slideToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 .page-header {
   position: fixed;
   top: 0;
@@ -242,17 +251,23 @@
     color: inherit;
     padding: 0 0.5em 0.5em;
     transition: all 200ms;
+    overflow: hidden;
+
+    &:not(.active)::after {
+      transform: translateX(-100%);
+      animation: 250ms slideToRight ease-in-out;
+    }
 
     &::after {
       content: "";
       position: absolute;
       bottom: 0;
-      width: 0;
       height: 2px;
       background-color: $c-light;
       opacity: 0;
-      right: 0;
-      transition: opacity 500ms, background-color 200ms, width 250ms ease-in;
+      width: 100%;
+      left: 0;
+      transition: opacity 500ms, background-color 200ms, transform 250ms;
 
       @media (max-width: $tablet) and (orientation: portrait) {
         left: 0;
@@ -270,7 +285,7 @@
     &.active {
       &::after {
         opacity: 1;
-        width: 100%;
+        transform: translateX(0);
       }
     }
 
@@ -280,10 +295,9 @@
       outline: none;
 
       &::after {
+        animation: none;
         opacity: 1;
-        width: 100%;
-        left: 0;
-        right: auto;
+        transform: translateX(0);
         background-color: $c-purple;
       }
     }

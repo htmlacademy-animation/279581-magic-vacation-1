@@ -1,4 +1,4 @@
-@keyframes fadeOut {
+@keyframes hideSocials {
   from {
     opacity: 1;
   }
@@ -6,10 +6,10 @@
     opacity: 0;
   }
 }
-@keyframes fadeIn {
+@keyframes showSocials {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(1.2rem);
   }
   to {
     opacity: 1;
@@ -27,9 +27,9 @@
     }
     li {
       .social-block__link {
-        animation: 250ms fadeIn forwards ease-in-out;
-        // opacity: 1;
-        // transform: translateY(0);
+        @media (min-width: $mobile) {
+          animation: 250ms showSocials forwards ease-in-out;
+        }
       }
       &:nth-child(2) .social-block__link {
         animation-duration: 400ms;
@@ -227,10 +227,8 @@
   color: $c-light;
   border: 2px solid transparent;
   border-radius: 50%;
-  // transform: translateY(10px);
-  opacity: 0;
   transition: all 300ms ease-in-out;
-  animation: 1s fadeOut;
+  animation: 1s hideSocials;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -240,6 +238,9 @@
   @media (max-width: $tablet) and (orientation: portrait) {
     color: $c-light;
     background-color: $c-dark;
+  }
+  @media (min-width: $tablet) {
+    opacity: 0;
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
