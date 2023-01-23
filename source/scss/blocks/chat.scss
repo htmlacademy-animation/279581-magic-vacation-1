@@ -1,3 +1,11 @@
+.screen--game.active {
+  .chat__footer {
+    &::after {
+      transform: translateX(-100%);
+    }
+  }
+}
+
 .chat {
   flex-grow: 1;
   display: flex;
@@ -185,4 +193,28 @@
 
 .chat__footer {
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(0);
+    transition: transform 400ms ease-in-out;
+    display: block;
+    height: 100%;
+    width: 89%;
+    z-index: 2;
+    background-color: #5f458c;
+  }
+
+  input {
+    z-index: 1;
+  }
+
+  button {
+    z-index: 3;
+  }
 }
